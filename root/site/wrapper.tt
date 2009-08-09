@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>[% title %]</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta http-equiv="Content-Language" content="en-gb">
+  <link href="/static/main.css" rel="stylesheet" rev="stylesheet" type="text/css" media="screen">
+</head>
+
+<body>
+    <div id="page">
+      <div id="header">
+    <div id="homepage_link">
+      <a href="/"/a>
+    </div>
+        <div id="search_form">
+          <form action="search.html" method="GET" id="search">
+            <input type="text" name="q" id="search_box" alt="Search">
+          </form>
+        </div>
+      </div>
+      
+      <div id="body">
+        <div id="left_column">
+          <div class="side_group">
+            <div class="side_panel doc_panel">
+              <p>What's It All About?</p>
+              <ul>
+                <li><a href="/overview/">Overview</a>
+                <li><a href="/license/">License</a>
+              </ul>
+            </div>
+            <div class="side_panel doc_panel">
+
+              <p>Countries</p>
+              <ul>
+                <li>No Countries yet</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div id="centre_column">
+          <div id="content_header">
+            <div id="title_bar">
+              <div id="page_name">
+                <h1>[% title %]</h1>
+
+              </div>
+            </div>
+            <div id="breadcrumbs">
+    Home
+            </div>
+          </div>
+          <div id="content_body">
+        <!--[if lt IE 7]>
+ <div class="noscript">
+   <p>
+     <strong>It looks like you're using Internet Explorer 6. This is a very old
+     browser which does not offer full support for modern websites.</strong>
+   </p>
+   <p>
+     Unfortunately this means that this website will not work on
+     your computer.
+   </p>
+   <p>
+     Don't miss out though! To view the site (and get a better experience from
+     many other websites), simply upgrade to
+     <a href="http://www.microsoft.com/windows/Internet-explorer/default.aspx">Internet
+Explorer 8</a>
+     or download an alternative browser such as
+     <a href="http://www.mozilla.com/en-US/firefox/firefox.html">Firefox</a>,
+     <a href="http://www.apple.com/safari/download/">Safari</a>, or
+     <a href="http://www.google.co.uk/chrome">Google Chrome</a>.
+   </p>
+   <p>
+     All of these browsers are free. If you're using a PC at work, you may
+     need to contact your IT administrator.
+   </p>
+ </div>
+<![endif]-->
+          [% content %]
+          </div>
+        </div>
+
+        <div id="right_column">
+          <div class="side_group">
+            <div class="side_panel tools_panel">
+              <p>Nothing here yet</p>
+          </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+      </div>
+      <div id="footer">
+    <div id="footer_content">
+      
+    </div>
+      </div>
+      
+    </div>
+    
+  </body>
+</html>
