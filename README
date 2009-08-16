@@ -1,9 +1,19 @@
-Run script/escape_server.pl to test the application.
+=head1 NAME
 
-Setting up the Web site:
+Escape - Playing around with Catalyst and DBIx::Class
 
-Run util/country.pl
-    This will rebuild the model and repopulate it with data
+=head1 PURPOSE
 
-./script/escape_server.pl -r
-    This starts the server
+Long-term, this might be a Web site for people gather information about how to
+emigrate to other countries.  Right now, it pretty much just lists countries
+and Google maps for said countries.
+
+=head1 USAGE
+
+Rebuild the model and populate the database
+
+    util/country.pl
+
+Start the server
+
+    ./script/escape_server.pl -r
