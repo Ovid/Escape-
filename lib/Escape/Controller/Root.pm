@@ -65,6 +65,7 @@ sub auto : Private {
     # static data we want to cache
     $c->stash->{letters}        = $letters;
     $c->stash->{google_api_key} = $google_api_key;
+    return 1;
 }
 
 =head2 end
