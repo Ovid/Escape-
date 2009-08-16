@@ -44,7 +44,10 @@ Attempt to render a view, if needed.
 
 sub end : ActionClass('RenderView') {
     my ($self, $c) = @_;
-    $c->stash->{letters} = ['A'..'Z'];
+    my $letters = $c->model('DB')->storage->dbh->selectcol_arrayref(
+        'select distinct(substr(name,1,1)) as letter from country order by letter'
+    );
+    $c->stash->{letters} = $letters;
 }
 
 =head1 AUTHOR

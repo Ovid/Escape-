@@ -25,6 +25,7 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{country_rs} =
       $c->model('DB::Country')->search( undef, { order_by => 'name' } );
+    $c->stash->{title} ||= 'Countries';
 }
 
 sub country : Path('/country/') : Args(1) {
@@ -34,16 +35,17 @@ sub country : Path('/country/') : Args(1) {
     $c->stash->{population} =
       Number::Format->new( -thousands_sep => ',' )
       ->format_number( $country->population );
+    $c->stash->{title} = $country->name;
 }
 
 sub starts_with : Path('/country/starts_with/') : Args(1) {
-# select distinct(substr(name,1,1)) as letter from country order by letter;
     my ( $self, $c, $letter ) = @_;
-    $letter = ucfirst(lc($letter));
+    $letter = ucfirst( lc($letter) );
     my $countries =
       $c->model('DB::Country')->search( { name => { -like => "$letter%" } } );
     $c->stash->{country_rs} = $countries;
-    $c->stash->{template}  = 'country/index.tt';
+    $c->stash->{template}   = 'country/index.tt';
+    $c->stash->{title} = "Countries starting with '$letter'";
 }
 
 =head1 AUTHOR
