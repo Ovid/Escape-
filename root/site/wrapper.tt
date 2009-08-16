@@ -1,40 +1,52 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head>
-  <title>[% title %]</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-  <meta http-equiv="Content-Language" content="en-gb">
-  <link href="/static/main.css" rel="stylesheet" rev="stylesheet" type="text/css" media="screen">
-</head>
-
-<body>
+  <head>
+    <title>
+      [% title %]
+    </title>
+    <script
+    src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAO1tuVN09fTNsnuF3Gue90RT2yXp_ZAY8_ufC3CFXhHIE1NvwkxQkjTZ6oH4EYnRSIa8gbPqRetT3IA" type="text/javascript"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Language" content="en-gb" />
+    <link href="/static/main.css" rel="stylesheet" rev="stylesheet" type="text/css" media="screen" />
+  </head>
+  <body[% IF country %] onload="load();"[% END %]>
     <div id="page">
       <div id="header">
-    <div id="homepage_link">
-      <a href="/"/a>
-    </div>
+        <div id="homepage_link">
+          <a href="/"></a>
+        </div>
         <div id="search_form">
-          <form action="search.html" method="GET" id="search">
-            <input type="text" name="q" id="search_box" alt="Search">
+          <a href="/"></a>
+          <form action="search.html" method="get" id="search" name="search">
+            <input type="text" name="q" id="search_box" alt="Search" />
           </form>
         </div>
       </div>
-      
       <div id="body">
         <div id="left_column">
           <div class="side_group">
             <div class="side_panel doc_panel">
-              <p>What's It All About?</p>
+              <p>
+                What
+              </p>
               <ul>
-                <li><a href="/overview/">Overview</a>
-                <li><a href="/license/">License</a>
+                <li>
+                  <a href="/overview/">Overview</a>
+                </li>
+                <li>
+                  <a href="/license/">License</a>
+                </li>
               </ul>
             </div>
             <div class="side_panel doc_panel">
-
-              <p>Countries</p>
+              <p>
+                Where
+              </p>
               <ul>
-                <li>No Countries yet</li>
+                <li>No Countries yet
+                </li>
               </ul>
             </div>
           </div>
@@ -43,16 +55,17 @@
           <div id="content_header">
             <div id="title_bar">
               <div id="page_name">
-                <h1>[% title %]</h1>
-
+                <h1>
+                  [% title %]
+                </h1>
               </div>
             </div>
             <div id="breadcrumbs">
-    Home
+              Home
             </div>
           </div>
           <div id="content_body">
-        <!--[if lt IE 7]>
+            <!--[if lt IE 7]>
  <div class="noscript">
    <p>
      <strong>It looks like you're using Internet Explorer 6. This is a very old
@@ -78,26 +91,23 @@ Explorer 8</a>
    </p>
  </div>
 <![endif]-->
-          [% content %]
+            [% content -%]
           </div>
         </div>
-
         <div id="right_column">
           <div class="side_group">
             <div class="side_panel tools_panel">
-              <p>Nothing here yet</p>
-          </div>
+              <p>
+                Pending
+              </p>
+            </div>
           </div>
         </div>
         <div class="clear"></div>
       </div>
       <div id="footer">
-    <div id="footer_content">
-      
-    </div>
+        <div id="footer_content"></div>
       </div>
-      
     </div>
-    
   </body>
 </html>

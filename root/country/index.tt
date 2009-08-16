@@ -1,6 +1,5 @@
-<table>
-  <tr><th>Country Code</th><th>Name</th></tr>
-  [% FOR country IN countries -%]
-  <tr><td>[% country.code %]</td><td>[% country.name %]</td></tr>
-  [%- END %]
-</table>
+<ul> 
+[% WHILE (country = country_rs.next) -%]
+  <li id="[% country.code %]"><a href="/country/[% country.url_key %]/">[% country.name %]</a></li>
+[% END -%]
+</ul>
