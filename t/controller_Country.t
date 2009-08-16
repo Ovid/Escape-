@@ -12,5 +12,10 @@ my $request = request('/country');
 ok $request->is_success, 'Request should succeed';
 my $content = $request->content;
 explain "Got content";
-like_xpath $content, '/x:html/x:body', 'We have an XHTML document';
-#"id('NF')", 'NORFOLK ISLAND';
+like $content, qr/afghanistan/, 'We probably have some data there';
+
+$request = request('/country/afghanistan/');
+ok $request->is_success, 'Request should succeed';
+$content = $request->content;
+explain "Got content";
+like $content, qr/Population/, '... and we have some data';

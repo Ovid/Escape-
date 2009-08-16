@@ -26,9 +26,9 @@ Escape::Controller::Root - Root Controller for Escape
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-}
+sub index    : Path               : Args(0) { }
+sub overview : Path('/overview/') : Args(0) { }
+sub license  : Path('/license/')  : Args(0) { }
 
 sub default :Path {
     my ( $self, $c ) = @_;
@@ -42,7 +42,10 @@ Attempt to render a view, if needed.
 
 =cut
 
-sub end : ActionClass('RenderView') {}
+sub end : ActionClass('RenderView') {
+    my ($self, $c) = @_;
+    $c->stash->{letters} = ['A'..'Z'];
+}
 
 =head1 AUTHOR
 
