@@ -8,6 +8,11 @@ Long-term, this might be a Web site for people gather information about how to
 emigrate to other countries.  Right now, it pretty much just lists countries
 and Google maps for said countries.
 
+=head1 THEFT
+
+I stole the basic design from perldoc.perl.org.  Sue me :)  (Actually, JJ,
+please don't sue me)
+
 =head1 USAGE
 
 Rebuild the model and populate the database
