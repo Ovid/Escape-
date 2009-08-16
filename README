@@ -1,1 +1,9 @@
 Run script/escape_server.pl to test the application.
+
+Setting up the Web site:
+
+Run util/country.pl
+    This will rebuild the model and repopulate it with data
+
+./script/escape_server.pl -r
+    This starts the server

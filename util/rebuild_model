@@ -1,6 +1,6 @@
 #!/bin/bash
 
-rm escape.db
-sqlite3 escape.db < escape.sql
+rm db/escape.db
+sqlite3 db/escape.db < db/escape.sql
 rm -fr lib/Escape/Schema/
-script/escape_create.pl model DB DBIC::Schema Escape::Schema create=static dbi:SQLite:escape.db
+script/escape_create.pl model DB DBIC::Schema Escape::Schema create=static dbi:SQLite:db/escape.db
