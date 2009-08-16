@@ -26,28 +26,45 @@ Escape::Controller::Root - Root Controller for Escape
 
 =cut
 
-sub index      : Path               : Args(0) { }
-sub overview   : Path('/overview/') : Args(0) { }
-sub license    : Path('/license/')  : Args(0) { }
-sub technology : Path('/technology/')  : Args(0) { }
+sub index : Path : Args(0) {
+}
 
-sub default :Path {
+sub overview : Path('/overview/') : Args(0) {
+}
+
+sub license : Path('/license/') : Args(0) {
+}
+
+sub technology : Path('/technology/') : Args(0) {
+}
+
+sub default : Path {
     my ( $self, $c ) = @_;
-    $c->response->body( 'Page not found' );
+    $c->response->body('Page not found');
     $c->response->status(404);
 }
 
 sub auto : Private {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
     my $cache = $c->cache;
     my $letters;
     unless ( $letters = $cache->get('letters') ) {
-        $letters = $c->model('DB')->storage->dbh->selectcol_arrayref(
-            'select distinct(substr(name,1,1)) as letter from country order by letter'
-        );
+        $letters =
+          $c->model('DB')
+          ->storage->dbh->selectcol_arrayref(
+'select distinct(substr(name,1,1)) as letter from country order by letter'
+          );
         $cache->set( letters => $letters );
     }
-    $c->stash->{letters} = $letters;
+
+    my $google_api_key;
+    unless ( $google_api_key = $cache->get('google_api_key') ) {
+        $google_api_key = $c->config->{google_api_key}{ $c->req->hostname };
+    }
+
+    # static data we want to cache
+    $c->stash->{letters}        = $letters;
+    $c->stash->{google_api_key} = $google_api_key;
 }
 
 =head2 end
@@ -57,7 +74,7 @@ Attempt to render a view, if needed.
 =cut
 
 sub end : ActionClass('RenderView') {
-    my ($self, $c) = @_;
+    my ( $self, $c ) = @_;
 }
 
 =head1 AUTHOR

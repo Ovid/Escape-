@@ -35,7 +35,7 @@ __PACKAGE__->config->{'Plugin::Cache'}{backend} = {
         #debug   => 2,
     };
 
-__PACKAGE__->config( name => 'Escape' );
+__PACKAGE__->config( 'Plugin::ConfigLoader' => { file => 'db/escape.conf' } );
 
 # Start the application
 __PACKAGE__->setup();
