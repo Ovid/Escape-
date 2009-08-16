@@ -41,7 +41,6 @@ sub auto : Private {
     my $cache = $c->cache;
     my $letters;
     unless ( $letters = $cache->get('letters') ) {
-    print STDERR "Fetching from cache\n";
         $letters = $c->model('DB')->storage->dbh->selectcol_arrayref(
             'select distinct(substr(name,1,1)) as letter from country order by letter'
         );
