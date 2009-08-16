@@ -36,6 +36,20 @@ sub default :Path {
     $c->response->status(404);
 }
 
+sub auto : Private {
+    my ($self, $c) = @_;
+    my $cache = $c->cache;
+    my $letters;
+    unless ( $letters = $cache->get('letters') ) {
+    print STDERR "Fetching from cache\n";
+        $letters = $c->model('DB')->storage->dbh->selectcol_arrayref(
+            'select distinct(substr(name,1,1)) as letter from country order by letter'
+        );
+        $cache->set( letters => $letters );
+    }
+    $c->stash->{letters} = $letters;
+}
+
 =head2 end
 
 Attempt to render a view, if needed.
@@ -44,10 +58,6 @@ Attempt to render a view, if needed.
 
 sub end : ActionClass('RenderView') {
     my ($self, $c) = @_;
-    my $letters = $c->model('DB')->storage->dbh->selectcol_arrayref(
-        'select distinct(substr(name,1,1)) as letter from country order by letter'
-    );
-    $c->stash->{letters} = $letters;
 }
 
 =head1 AUTHOR

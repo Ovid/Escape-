@@ -16,6 +16,7 @@ use Catalyst::Runtime 5.80;
 use parent qw/Catalyst/;
 #use Catalyst qw/-Debug
 use Catalyst qw/
+  Cache
   ConfigLoader
   Static::Simple/;
 our $VERSION = '0.01';
@@ -28,6 +29,11 @@ our $VERSION = '0.01';
 # details given here can function as a default configuration,
 # with an external configuration file acting as an override for
 # local deployment.
+
+__PACKAGE__->config->{'Plugin::Cache'}{backend} = {
+        class   => "Catalyst::Plugin::Cache::Backend::Memory",
+        #debug   => 2,
+    };
 
 __PACKAGE__->config( name => 'Escape' );
 

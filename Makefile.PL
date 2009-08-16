@@ -11,6 +11,7 @@ requires 'Catalyst::Plugin::ConfigLoader';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Helper::View::TT';
+requires 'Catalyst::Plugin::Cache' => '0.08';
 requires 'parent';
 requires
   'Config::General';  # This should reflect the config file format you've chosen
