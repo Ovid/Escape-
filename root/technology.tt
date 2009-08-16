@@ -1,0 +1,14 @@
+<p>Pretty much for geeks only, this is a list of the main technologies we used
+to build this site.</p>
+
+<ul>
+    <li><a href="http://www.perl.org/get.html">Perl!!!</a></li>
+    <li><a href="http://www.catalystframework.org/">Catalyst</a></li>
+    <li><a href="http://www.tt2.org/">Template Toolkit</a></li>
+    <li><a href="http://www.freebase.com/">Freebase</a></li>
+    <li><a href="http://www.vim.org/">Vim</a></li>
+    <li><a href="http://search.cpan.org/dist/DBIx-Class/">DBIx::Class</a></li>
+    <li><a href="http://github.com/Ovid/Escape-/tree/master">Github (here's the source code for you)</li>
+</ul>
+
+[% hostname %]
