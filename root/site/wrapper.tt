@@ -101,8 +101,11 @@ Explorer 8</a>
           <div class="side_group">
             <div class="side_panel tools_panel">
               <p>
-                Pending
+                <a href="/technology/">Technologies</a>
               </p>
+              <ul>
+                <li><a href="/technology/">For teh (sic) geeks</a></li>
+              </ul>
             </div>
           </div>
         </div>
