@@ -39,8 +39,9 @@ sub country : Path('/country/') : Args(1) {
 sub starts_with : Path('/country/starts_with/') : Args(1) {
 # select distinct(substr(name,1,1)) as letter from country order by letter;
     my ( $self, $c, $letter ) = @_;
+    $letter = ucfirst(lc($letter));
     my $countries =
-      $c->model('DB::Country')->search_like( { name => "\U$letter%" } );
+      $c->model('DB::Country')->search( { name => { -like => "$letter%" } } );
     $c->stash->{country_rs} = $countries;
     $c->stash->{template}  = 'country/index.tt';
 }
