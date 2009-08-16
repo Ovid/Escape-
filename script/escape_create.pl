@@ -56,9 +56,9 @@ escape_create.pl [options] model|view|controller name [helper] [options]
    escape_create.pl view MyView TT
    escape_create.pl view TT TT
    escape_create.pl model My::Model
-   escape_create.pl model SomeDB DBIC::Schema MyApp::Schema create=dynamic\
+   escape_create.pl model SomeDB DBIC::Schema Escape::Schema create=dynamic\
    dbi:SQLite:/tmp/my.db
-   escape_create.pl model AnotherDB DBIC::Schema MyApp::Schema create=static\
+   escape_create.pl model AnotherDB DBIC::Schema Escape::Schema create=static\
    dbi:Pg:dbname=foo root 4321
 
  See also:

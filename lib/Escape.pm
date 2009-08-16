@@ -14,9 +14,10 @@ use Catalyst::Runtime 5.80;
 #                 directory
 
 use parent qw/Catalyst/;
-use Catalyst qw/-Debug
-                ConfigLoader
-                Static::Simple/;
+#use Catalyst qw/-Debug
+use Catalyst qw/
+  ConfigLoader
+  Static::Simple/;
 our $VERSION = '0.01';
 
 # Configure the application.
@@ -32,7 +33,6 @@ __PACKAGE__->config( name => 'Escape' );
 
 # Start the application
 __PACKAGE__->setup();
-
 
 =head1 NAME
 

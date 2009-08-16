@@ -12,8 +12,12 @@ requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Helper::View::TT';
 requires 'parent';
-requires 'Config::General'; # This should reflect the config file format you've chosen
-                 # See Catalyst::Plugin::ConfigLoader for supported formats
+requires
+  'Config::General';  # This should reflect the config file format you've chosen
+                      # See Catalyst::Plugin::ConfigLoader for supported formats
+requires 'Text::Unaccent' => '1.08';
+requires 'Number::Format' => '1.72';
+
 catalyst;
 
 install_script glob('script/*.pl');

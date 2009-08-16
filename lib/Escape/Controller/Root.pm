@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 #
 # Sets the actions in this controller to be registered with no prefix
-# so they function identically to actions created in MyApp.pm
+# so they function identically to actions created in Escape.pm
 #
 __PACKAGE__->config->{namespace} = '';
 
@@ -28,9 +28,6 @@ Escape::Controller::Root - Root Controller for Escape
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
-    # Hello World
-    $c->response->body( $c->welcome_message );
 }
 
 sub default :Path {
