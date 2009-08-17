@@ -21,7 +21,7 @@ function load() {
         map.addControl(new GOverviewMapControl());
         var geocoder = new GClientGeocoder();
         geocoder.getLocations(
-            '[% country.url_key %]', 
+            "[% country.url_key %]", 
             function(result) {
                 var x = result.Placemark[0].Point.coordinates;
                 map.setCenter(new GLatLng(x[1],x[0]), [% zoom_level %]);
