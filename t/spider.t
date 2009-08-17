@@ -2,28 +2,54 @@ use strict;
 use warnings;
 
 use lib 't/lib';
-use Test::Most 'no_plan', 'die';    # tests => 3;
+use Test::Most 'no_plan';    # tests => 3;
 use HTML::SimpleLinkExtor;
 use utf8;
 
 use Catalyst::Test 'Escape';
 {
-    my %seen = ( '/' => 1 );
+    my %seen = (
+        '/'        => 1,
+        '/static/' => 1,     # maybe change this?
+    );
+
     sub get_links {
-        my ($base, $request) = @_;
+        my ( $base, $request ) = @_;
         $base =~ s{/$}{};
         my $parser  = HTML::SimpleLinkExtor->new;
         my $content = $request->content;
         utf8::decode($content);
 
         # only local links
-        no warnings 'uninitialized';
-        return
-          map  { m{^\w} && ($_ = "$base/$_"); $_ }
-          grep { not $seen{$_}++ }
-          grep { m{^//} || !m{^\w+://} }
-          $parser->parse($content)->links;
+        my @links = $parser->parse($content)->links;
+        my @results;
+        foreach my $link (@links) {
+            no warnings 'uninitialized';
+            next if $link =~ m{^\w+://};
+            foreach ( url_hack($link) ) {
+                next if $seen{$_}++;
+                $_ = "$base/$_" if $_ =~ m{^\w};
+                push @results => $_;
+            }
+        }
+        return @results;
     }
+}
+
+sub url_hack {
+    my $link = shift;
+    my $orig = $link;
+    $link =~ s/\?.*//;    # strip the query string
+    my @hacks = grep { $_ } split '/' => $link;
+    my @links = '/';
+    while ( my $segment = shift @hacks ) {
+        push @links => $links[-1] . $segment . '/';
+    }
+
+    # ok (and safe) to strip the final /
+    $links[-1] =~ s{\/$}{};
+    push @links => $orig if $orig ne $link;
+    return @links;
 }
 my %visited;
 test_links('/');
@@ -33,6 +59,6 @@ sub test_links {
     foreach my $link (@links) {
         ok my $request = request($link), "We should be able to fetch '$link'";
         is $request->code, 200, '... with the correct status code';
-        test_links( get_links($link, $request) );
+        test_links( get_links( $link, $request ) );
     }
 }

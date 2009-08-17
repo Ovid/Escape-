@@ -23,6 +23,9 @@ Catalyst Controller.
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
+    if ( defined ( my $letters = $c->req->param('starts_with') ) ) {
+        $c->detach('starts_with', [$letters]);
+    }
     $c->stash->{country_rs} =
       $c->model('DB::Country')->search( undef, { order_by => 'name' } );
     $c->stash->{title} ||= 'Countries';
@@ -40,14 +43,14 @@ sub country : Path('/country/') : Args(1) {
     $c->stash->{title} = $country->name;
 }
 
-sub starts_with : Path('/country/starts_with/') : Args(1) {
+sub starts_with : Private {
     my ( $self, $c, $letter ) = @_;
     $letter = ucfirst( lc($letter) );
     my $countries =
       $c->model('DB::Country')->search( { name => { -like => "$letter%" } } );
     $c->stash->{country_rs} = $countries;
     $c->stash->{template}   = 'country/index.tt';
-    $c->stash->{title} = "Countries starting with '$letter'";
+    $c->stash->{title}      = "Countries starting with '$letter'";
 }
 
 =head1 AUTHOR

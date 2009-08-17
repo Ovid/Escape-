@@ -47,7 +47,7 @@
                 <li><a href="/country/">All Countries</a></li>
                 <li>
                 [% FOR letter IN letters %]
-                <a href="/country/starts_with/[% letter | lower %]/">[% letter %]</a>&nbsp;
+                <a href="/country/?starts_with=[% letter | lower %]">[% letter %]</a>&nbsp;
                 [% END %]
                 </li>
               </ul>
