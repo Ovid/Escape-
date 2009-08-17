@@ -1,0 +1,10 @@
+<h1>Countries matching "[% search | html %]"</h1>
+[% IF country_rs.count %]
+<ul> 
+  [% WHILE (country = country_rs.next) -%]
+  <li id="[% country.code %]"><a href="/country/[% country.url_key %]/">[% country.name %]</a></li>
+  [% END -%]
+</ul>
+[% ELSE %]
+<p>No countries found</p>
+[% END %]
