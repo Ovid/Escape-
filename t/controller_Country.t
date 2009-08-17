@@ -3,10 +3,8 @@ use warnings;
 
 use lib 't/lib';
 use Test::Most 'no_plan'; # tests => 3;
-use Test::XHTML::XPath;
 
-BEGIN { use_ok 'Catalyst::Test', 'Escape' }
-BEGIN { use_ok 'Escape::Controller::Country' }
+use Catalyst::Test 'Escape';
 
 my $request = request('/country');
 ok $request->is_success, 'Request should succeed';

@@ -17,6 +17,7 @@ no_index:
   directory:
     - inc
     - t
+    - xt
 requires:
   Catalyst::Action::RenderView: 0
   Catalyst::Helper::View::TT: 0
