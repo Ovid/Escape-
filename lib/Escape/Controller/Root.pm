@@ -3,6 +3,7 @@ package Escape::Controller::Root;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
+use Text::Unaccent;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -51,7 +52,7 @@ sub status_not_found : Private {
 
 sub search : Local {
     my ( $self, $c ) = @_;
-    my $search = $c->req->param('q') || '';
+    my $search = lc unac_string( "UTF8", $c->req->param('q') || '' );
 
     my $term = lc $search;
     $c->stash->{country_rs} = $c->model('DB::Country')->search(
