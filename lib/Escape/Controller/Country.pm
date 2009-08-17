@@ -5,6 +5,26 @@ use warnings;
 use parent 'Catalyst::Controller';
 use Number::Format;
 
+my @ZOOM_LEVEL;
+
+BEGIN {
+    my @areas = qw/
+      10000000
+      5000000
+      1000000
+      100000
+      10000
+      1000
+      100
+      20
+      1
+      /;
+    # zoom level 14 is closest, 4 is farthest
+    foreach my $zoom ( 1 .. @areas - 1 ) {
+        push @ZOOM_LEVEL => [ $areas[$zoom] => $zoom + 3 ];
+    }
+}
+
 =head1 NAME
 
 Escape::Controller::Country - Catalyst Controller
@@ -23,8 +43,8 @@ Catalyst Controller.
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
-    if ( defined ( my $letters = $c->req->param('starts_with') ) ) {
-        $c->detach('starts_with', [$letters]);
+    if ( defined( my $letters = $c->req->param('starts_with') ) ) {
+        $c->detach( 'starts_with', [$letters] );
     }
     $c->stash->{country_rs} =
       $c->model('DB::Country')->search( undef, { order_by => 'name' } );
@@ -36,11 +56,30 @@ sub country : Path('/country/') : Args(1) {
     my $country = $c->model('DB::Country')->find( { url_key => $url_key } );
     $c->stash->{country} = $country;
     my $population = $country->population;
-    $c->stash->{population} =
-      $population
-      ? Number::Format->new( -thousands_sep => ',' )->format_number($population)
-      : '';
-    $c->stash->{title} = $country->name;
+    foreach my $value (qw/population area/) {
+        $c->stash->{$value} =
+          $country->$value
+          ? Number::Format->new(
+            -thousands_sep => ',',
+            -decimal_point => '.'
+          )->format_number( $country->$value )
+          : '';
+    }
+
+    # We don't yet have areas for everything.  Hope this is ok.
+    my $area       = $country->area || 0;  
+    my $zoom_level = 3;
+
+    # zoom level 14 is closest, 4 is farthest
+    foreach my $zoom (reverse @ZOOM_LEVEL) {
+        if ( $area < $zoom->[0] ) {
+            $zoom_level = $zoom->[1];
+            last;
+        }
+    }
+
+    $c->stash->{zoom_level} = $zoom_level;
+    $c->stash->{title}      = $country->name;
 }
 
 sub starts_with : Private {

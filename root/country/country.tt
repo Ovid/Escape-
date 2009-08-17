@@ -5,28 +5,32 @@
     <td>Population:</td><td>[% population %]</td>
   </tr>
   <tr>
+    <td>Area:</td><td>[% area %] square kilometers</td>
+  </tr>
+  <tr>
     <td>Wikipedia:</td><td><a href="[% country.wikipedia %]">[% country.wikipedia %]</a></td>
   </tr>
 </table>
 <script type="text/javascript">
 //<![CDATA[
 function load() {
-if (GBrowserIsCompatible()) {
-var map = new GMap2(document.getElementById("[% country.name %]"));
-map.addControl(new GSmallMapControl());
-map.addControl(new GMapTypeControl());
-map.addControl(new GOverviewMapControl());
-var geocoder = new GClientGeocoder();
-geocoder.getLocations('[% country.url_key %]', function(result)
-{
-var x = result.Placemark[0].Point.coordinates;
-map.setCenter(new GLatLng(x[1],x[0]), 5);
-var marker = new GMarker(map.getCenter(), Icon);
-map.setMapType(G_NORMAL_MAP);
-map.addOverlay(marker);
-}
-);
-}
+    if (GBrowserIsCompatible()) {
+        var map = new GMap2(document.getElementById("[% country.name %]"));
+        map.addControl(new GSmallMapControl());
+        map.addControl(new GMapTypeControl());
+        map.addControl(new GOverviewMapControl());
+        var geocoder = new GClientGeocoder();
+        geocoder.getLocations(
+            '[% country.url_key %]', 
+            function(result) {
+                var x = result.Placemark[0].Point.coordinates;
+                map.setCenter(new GLatLng(x[1],x[0]), [% zoom_level %]);
+                var marker = new GMarker(map.getCenter(), Icon);
+                map.setMapType(G_NORMAL_MAP);
+                map.addOverlay(marker);
+            }
+        );
+    }
 }
 //]]>
 </script>
