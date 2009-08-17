@@ -41,7 +41,8 @@ my $query_template = <<'END_QUERY';
   "form_of_government": [],
   "gdp_nominal" : [{"optional":true,"timestamp":null,"currency":null,"amount":null}],
   "official_language":[{"optional":true,"name":null}],
-  "/location/statistical_region/population" : [{"optional":true,"number":null,"timestamp":null}]
+  "/location/statistical_region/population" : [{"optional":true,"number":null,"timestamp":null}],
+  "/location/location/area" : { "value": null, "optional": true }
 }]
 END_QUERY
 
@@ -49,6 +50,7 @@ my $total = @countries;
 my $count = 1;
 foreach my $country (@countries) {
     my $query = sprintf $query_template => $country->{code};
+    print "Adding $country->{name} ($count out of $total)\n";
     my $result = $mh->read( $query, 'perl' ) or die $WWW::Metaweb::errstr;
     next unless @$result;
     $result = $result->[0];
@@ -60,8 +62,7 @@ foreach my $country (@countries) {
         $population = $pop->{number} if $pop->{timestamp} ge $last;
         $last = $pop->{timestamp};
     }
-
-    print "Adding $result->{name} ($count out of $total)\n";
+    my $area = $result->{"/location/location/area"}{value};
     $count++;
     my $name         = $result->{name};
     my $escaped_name = uri_escape($name);
@@ -71,6 +72,7 @@ foreach my $country (@countries) {
             url_key    => lc unac_string( "UTF8", $name ),
             name       => $name,
             population => $population,
+            area       => $area,
             capital    => '',
             wikipedia  => "http://en.wikipedia.org/wiki/$escaped_name",
         }
