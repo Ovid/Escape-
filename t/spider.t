@@ -4,6 +4,7 @@ use warnings;
 use lib 't/lib';
 use Test::Most 'no_plan', 'die';    # tests => 3;
 use HTML::SimpleLinkExtor;
+use utf8;
 
 use Catalyst::Test 'Escape';
 {
@@ -12,6 +13,8 @@ use Catalyst::Test 'Escape';
         my ($base, $request) = @_;
         $base =~ s{/$}{};
         my $parser  = HTML::SimpleLinkExtor->new;
+        my $content = $request->content;
+        utf8::decode($content);
 
         # only local links
         no warnings 'uninitialized';
@@ -19,7 +22,7 @@ use Catalyst::Test 'Escape';
           map  { m{^\w} && ($_ = "$base/$_"); $_ }
           grep { not $seen{$_}++ }
           grep { m{^//} || !m{^\w+://} }
-          $parser->parse( $request->content )->links;
+          $parser->parse($content)->links;
     }
 }
 my %visited;
