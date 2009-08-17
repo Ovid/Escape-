@@ -1,5 +1,8 @@
 This file documents the revision history for Perl extension Escape.
 
+0.03
+        - Move developer tests to xt/
+
 0.02 2009-08-16  18:17:00
         - Lots of features, including country lists, Google map integration
           and a number of basic pages explaining who, what, etc.-
