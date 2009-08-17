@@ -40,8 +40,25 @@ sub technology : Path('/technology/') : Args(0) {
 
 sub default : Path {
     my ( $self, $c ) = @_;
-    $c->response->body('Page not found');
+    $c->forward('status_not_found');
+}
+
+sub status_not_found : Private {
+    my ( $self, $c ) = @_;
+    $c->stash->{template} = 'site/four_oh_four.tt';
     $c->response->status(404);
+}
+
+sub search : Local {
+    my ( $self, $c ) = @_;
+    my $search = $c->req->param('q') || '';
+
+    my $term = lc $search;
+    $c->stash->{country_rs} = $c->model('DB::Country')->search(
+        url_key => { -like => "%$term%" },
+        { order_by => 'name' }
+    );
+    $c->stash->{search} = $search;
 }
 
 sub auto : Private {

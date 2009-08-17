@@ -19,8 +19,8 @@
         </div>
         <div id="search_form">
           <a href="/"></a>
-          <form action="search.html" method="get" id="search" name="search">
-            <input type="text" name="q" id="search_box" alt="Search" />
+          <form action="/search" method="get" id="search" name="search">
+            <input type="text" name="q" id="search_box" alt="Search" value="[% search | html %]"/>
           </form>
         </div>
       </div>

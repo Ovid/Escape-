@@ -32,9 +32,11 @@ sub country : Path('/country/') : Args(1) {
     my ( $self, $c, $url_key ) = @_;
     my $country = $c->model('DB::Country')->find( { url_key => $url_key } );
     $c->stash->{country} = $country;
+    my $population = $country->population;
     $c->stash->{population} =
-      Number::Format->new( -thousands_sep => ',' )
-      ->format_number( $country->population );
+      $population
+      ? Number::Format->new( -thousands_sep => ',' )->format_number($population)
+      : '';
     $c->stash->{title} = $country->name;
 }
 
