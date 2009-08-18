@@ -1,6 +1,9 @@
 [% META title = 'Login' %]
 
 <!-- Login form -->
+[% IF error_msg %]
+<p>[% error_msg %]</p>
+[% END %]
 <form method="post" action="[% c.uri_for('/login') %]">
   <table>
     <tr>

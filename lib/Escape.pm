@@ -18,7 +18,16 @@ use parent qw/Catalyst/;
 use Catalyst qw/
   Cache
   ConfigLoader
-  Static::Simple/;
+  Static::Simple
+
+  StackTrace
+
+  Authentication
+
+  Session
+  Session::Store::FastMmap
+  Session::State::Cookie
+  /;
 our $VERSION = '0.04';
 
 # Configure the application.
@@ -31,9 +40,18 @@ our $VERSION = '0.04';
 # local deployment.
 
 __PACKAGE__->config->{'Plugin::Cache'}{backend} = {
-        class   => "Catalyst::Plugin::Cache::Backend::Memory",
-        #debug   => 2,
-    };
+    class => "Catalyst::Plugin::Cache::Backend::Memory",
+    #debug   => 2,
+};
+
+# Configure SimpleDB Authentication
+__PACKAGE__->config->{'Plugin::Authentication'} = {
+    default => {
+        class         => 'SimpleDB',
+        user_model    => 'DB::User',
+        password_type => 'self_check',
+    },
+};
 
 __PACKAGE__->config( 'Plugin::ConfigLoader' => { file => 'db/escape.conf' } );
 

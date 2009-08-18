@@ -26,6 +26,7 @@ requires:
   Catalyst::Plugin::Static::Simple: 0
   Catalyst::Runtime: 5.80007
   Config::General: 0
+  DBIx::Class::TimeStamp: 0.12
   HTML::SimpleLinkExtor: 1.23
   Number::Format: 1.72
   Text::Unaccent: 1.08

@@ -1,10 +1,9 @@
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More 'no_plan'; # tests => 3;
 
-BEGIN { use_ok 'Catalyst::Test', 'Escape' }
+use Catalyst::Test 'Escape';
 BEGIN { use_ok 'Escape::Controller::Logout' }
 
-ok( request('/logout')->is_success, 'Request should succeed' );
-
-
+my $request = request('/logout');
+is $request->code, 302, 'Logging out should redirect';
