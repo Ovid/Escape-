@@ -19,6 +19,10 @@ Rebuild the model and populate the database
 
     util/country.pl
 
+Now you also want to apply db/migrations/0001_up.sql
+
+(Eventually I'll automate this)
+
 Start the server
 
     ./script/escape_server.pl -r
