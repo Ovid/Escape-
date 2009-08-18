@@ -28,7 +28,7 @@ use Catalyst qw/
   Session::Store::FastMmap
   Session::State::Cookie
   /;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # Configure the application.
 #
