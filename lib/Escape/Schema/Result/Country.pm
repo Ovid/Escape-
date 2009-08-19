@@ -5,7 +5,7 @@ use warnings;
 
 use base 'DBIx::Class';
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "Core");
+__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn", "Core");
 __PACKAGE__->table("country");
 __PACKAGE__->add_columns(
   "id",
@@ -63,8 +63,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-19 20:54:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:k6+koRalL8WgrquGR4E82A
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-19 21:07:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8wDmw+uGzHhLWujJuUwTVg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

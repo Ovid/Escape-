@@ -22,11 +22,13 @@ requires 'parent';
 requires
   'Config::General';  # This should reflect the config file format you've chosen
                       # See Catalyst::Plugin::ConfigLoader for supported formats
-requires 'Text::Unaccent'             => '1.08';
-requires 'Number::Format'             => '1.72';
-requires 'HTML::SimpleLinkExtor'      => '1.23';
-requires 'DBIx::Class::TimeStamp'     => '0.12';
-requires 'DBIx::Class::EncodedColumn' => '0.00002';
+requires 'Text::Unaccent'                 => '1.08';
+requires 'Number::Format'                 => '1.72';
+requires 'HTML::SimpleLinkExtor'          => '1.23';
+requires 'DBIx::Class::TimeStamp'         => '0.12';
+requires 'DBIx::Class::EncodedColumn'     => '0.00002';
+# strange errors I need to debug
+#requires 'Test::WWW::Mechanize::Catalyst' => '0.51';
 
 catalyst;
 

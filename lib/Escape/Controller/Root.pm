@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use parent 'Catalyst::Controller';
 use Text::Unaccent;
+use Perl6::Junction qw/none/;
 
 #
 # Sets the actions in this controller to be registered with no prefix
@@ -82,7 +83,11 @@ sub auto : Private {
 
     # static data we want to cache
     $c->stash->{letters}        = $letters;
-    $c->stash->{google_api_key} = $google_api_key;
+
+    if ( $c->req->path eq none(qw/login logout/) ) {
+        $c->flash->{path} = $c->req->uri->as_string;
+    }
+    $c->keep_flash('path');
     return 1;
 }
 

@@ -43,8 +43,7 @@ sub index : Path : Args(0) {
         {
 
             # If successful, then let them use the application
-            $c->response->redirect(
-                $c->uri_for( $c->controller('Country')->action_for('index') ) );
+            $c->response->redirect( $c->flash->{path} || $c->uri_for('/') );
             return;
         }
         else {

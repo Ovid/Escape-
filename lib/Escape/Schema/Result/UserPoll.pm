@@ -5,7 +5,7 @@ use warnings;
 
 use base 'DBIx::Class';
 
-__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "Core");
+__PACKAGE__->load_components("InflateColumn::DateTime", "TimeStamp", "EncodedColumn", "Core");
 __PACKAGE__->table("user_poll");
 __PACKAGE__->add_columns(
   "id",
@@ -35,8 +35,8 @@ __PACKAGE__->belongs_to("user_id", "Escape::Schema::Result::User", { id => "user
 __PACKAGE__->belongs_to("poll_id", "Escape::Schema::Result::Poll", { id => "poll_id" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-19 20:54:04
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:RIaA8zvZwmoq7Wn/nQIeHQ
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-19 21:07:32
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:CrXfUuubrVbUgaqlTGCorA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

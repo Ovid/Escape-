@@ -1,6 +1,8 @@
 This file documents the revision history for Perl extension Escape.
 
 0.05
+        - Add poll infrastructure (not polls themselves, yet).
+        - Ensure that login/logout return you to the last page you were at.
 
 0.04 2009-08-18
         - Add encrypted passwords (eventually, we'll want this SSL only).
