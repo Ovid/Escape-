@@ -103,7 +103,7 @@ Explorer 8</a>
               <p>Who are you?</p>
               <ul>
                 [% IF c.user_exists %]
-                <li><a href="[% c.uri_for('/login') %]">Hi [% c.user.first_name %]!</a></li>
+                <li><a href="[% c.uri_for('/user', c.user.username) %]">Hi [% c.user.first_name %]!</a></li>
                 <li><a href="[% c.uri_for('/logout') %]">Logout</a></li>
                 [% ELSE %] 
                 <li><a href="[% c.uri_for('/login') %]">Login</a></li>
