@@ -56,7 +56,7 @@ sub country : Path('/country/') : Args(1) {
     my ( $self, $c, $url_key ) = @_;
     my $country = $c->model('DB::Country')->find( { url_key => $url_key } )
        or $c->detach('/status_not_found');
-    $c->stash->{country} = encode_entities($country, "\200‐\377");
+    $c->stash->{country} = $country;
     my $population = $country->population;
     foreach my $value (qw/population area/) {
         $c->stash->{$value} =
