@@ -28,7 +28,8 @@ sub index :Path :Args(0) {
 
 sub user : Path('/user/') : Args(1) {
     my ($self, $c, $user) = @_;
-    $c->stash->{user} = $c->model('DB::User')->find({ username => $user });
+    $c->stash->{user} = $c->model('DB::User')->find({ username => $user })
+        or $c->detach('/status_not_found');
 }
 
 =head1 AUTHOR
