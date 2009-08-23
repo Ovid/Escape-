@@ -5,10 +5,10 @@ use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
     schema_class => 'Escape::Schema',
-    
+
     connect_info => {
-        dsn => 'dbi:SQLite:db/escape.db',
-        user => '',
+        dsn      => ( $ENV{ESCAPE_TEST_DSN} || 'dbi:SQLite:db/escape.db' ),
+        user     => '',
         password => '',
     }
 );

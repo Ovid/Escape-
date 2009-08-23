@@ -1,6 +1,4 @@
 #!/usr/bin/env perl
-# IMPORTANT: if you delete this file your app will not work as
-# expected.  You have been warned.
 use inc::Module::Install;
 
 name 'Escape';
@@ -22,13 +20,17 @@ requires 'parent';
 requires
   'Config::General';  # This should reflect the config file format you've chosen
                       # See Catalyst::Plugin::ConfigLoader for supported formats
-requires 'Text::Unaccent'                 => '1.08';
-requires 'Number::Format'                 => '1.72';
-requires 'HTML::SimpleLinkExtor'          => '1.23';
-requires 'DBIx::Class::TimeStamp'         => '0.12';
-requires 'DBIx::Class::EncodedColumn'     => '0.00002';
-# strange errors I need to debug
-#requires 'Test::WWW::Mechanize::Catalyst' => '0.51';
+requires 'Text::Unaccent'             => '1.08';
+requires 'Number::Format'             => '1.72';
+requires 'HTML::SimpleLinkExtor'      => '1.23';
+requires 'DBIx::Class::TimeStamp'     => '0.12';
+requires 'DBIx::Class::EncodedColumn' => '0.00002';
+requires 'DBD::SQLite'                => '1.25';
+requires 'App::Info::RDBMS::SQLite'   => '0.55';
+
+# Force this version lest we get the 'Basic auth with colons' errors.
+requires 'WWW::Mechanize'                 => '1.60';
+requires 'Test::WWW::Mechanize::Catalyst' => '0.51';
 
 catalyst;
 
