@@ -26,11 +26,13 @@ requires 'HTML::SimpleLinkExtor'      => '1.23';
 requires 'DBIx::Class::TimeStamp'     => '0.12';
 requires 'DBIx::Class::EncodedColumn' => '0.00002';
 requires 'DBD::SQLite'                => '1.25';
-requires 'App::Info::RDBMS::SQLite'   => '0.55';
 
 # Force this version lest we get the 'Basic auth with colons' errors.
-requires 'WWW::Mechanize'                 => '1.60';
-requires 'Test::WWW::Mechanize::Catalyst' => '0.51';
+test_requires 'WWW::Mechanize'                 => '1.60';
+test_requires 'Test::WWW::Mechanize::Catalyst' => '0.51';
+test_requires 'App::Info::RDBMS::SQLite'   => '0.55';
+
+tests join q{ }, map { glob } qw[t/*.t t/controller/*.t];
 
 catalyst;
 

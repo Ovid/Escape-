@@ -3,7 +3,10 @@ abstract: 'Catalyst based application'
 author:
   - 'Curtis Poe'
 build_requires:
+  App::Info::RDBMS::SQLite: 0.55
   ExtUtils::MakeMaker: 6.42
+  Test::WWW::Mechanize::Catalyst: 0.51
+  WWW::Mechanize: 1.60
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
@@ -19,7 +22,6 @@ no_index:
     - t
     - xt
 requires:
-  App::Info::RDBMS::SQLite: 0.55
   Catalyst::Action::RenderView: 0
   Catalyst::Authentication::Realm::SimpleDB: 0
   Catalyst::Helper::View::TT: 0
@@ -38,9 +40,7 @@ requires:
   DBIx::Class::TimeStamp: 0.12
   HTML::SimpleLinkExtor: 1.23
   Number::Format: 1.72
-  Test::WWW::Mechanize::Catalyst: 0.51
   Text::Unaccent: 1.08
-  WWW::Mechanize: 1.60
   parent: 0
 resources:
   license: http://dev.perl.org/licenses/
