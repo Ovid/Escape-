@@ -28,17 +28,10 @@ Escape::Controller::Root - Root Controller for Escape
 
 =cut
 
-sub index : Path : Args(0) {
-}
-
-sub overview : Path('/overview/') : Args(0) {
-}
-
-sub license : Path('/license/') : Args(0) {
-}
-
-sub technology : Path('/technology/') : Args(0) {
-}
+sub index      : Path                 : Args(0) {}
+sub overview   : Path('/overview/')   : Args(0) {}
+sub license    : Path('/license/')    : Args(0) {}
+sub technology : Path('/technology/') : Args(0) {}
 
 sub default : Path {
     my ( $self, $c ) = @_;
