@@ -1,0 +1,9 @@
+[% IF user_rs.count %]
+<ul> 
+  [% WHILE (user = user_rs.next) -%]
+  <li id="[% user.username %]"><a href="/user/[% user.username %]/">[% user.first_name %] [% user.last_name %]</a></li>
+  [% END -%]
+</ul>
+[% ELSE %]
+<p>No users found</p>
+[% END %]
