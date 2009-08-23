@@ -100,7 +100,7 @@ Explorer 8</a>
         <div id="right_column">
           <div class="side_group">
             <div class="side_panel tools_panel">
-              <p>Who are you?</p>
+              <p><a href="/user/">Who are you?</a></p>
               <ul>
                 [% IF c.user_exists %]
                 <li><a href="[% c.uri_for('/user', c.user.username) %]">Hi [% c.user.first_name %]!</a></li>
