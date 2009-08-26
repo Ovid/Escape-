@@ -20,7 +20,8 @@ requires 'parent';
 requires
   'Config::General';  # This should reflect the config file format you've chosen
                       # See Catalyst::Plugin::ConfigLoader for supported formats
-requires 'Text::Unaccent'             => '1.08';
+requires 'Text::Unaccent'             => '1.08'; # helper script
+requires 'Text::CSV::Encoded'         => '0.08'; # helper script
 requires 'Number::Format'             => '1.72';
 requires 'HTML::SimpleLinkExtor'      => '1.23';
 requires 'DBIx::Class::TimeStamp'     => '0.12';

@@ -59,6 +59,20 @@ __PACKAGE__->add_columns(
     is_nullable => 0,
     size => 255,
   },
+  "latitude",
+  {
+    data_type => "FLOAT",
+    default_value => undef,
+    is_nullable => 1,
+    size => undef,
+  },
+  "longitude",
+  {
+    data_type => "FLOAT",
+    default_value => undef,
+    is_nullable => 1,
+    size => undef,
+  },
 );
 __PACKAGE__->set_primary_key("id");
 __PACKAGE__->has_many(
@@ -66,15 +80,10 @@ __PACKAGE__->has_many(
   "Escape::Schema::Result::Region",
   { "foreign.country_id" => "self.id" },
 );
-__PACKAGE__->has_many(
-  "cities",
-  "Escape::Schema::Result::City",
-  { "foreign.country_id" => "self.id" },
-);
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-26 09:03:02
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vjyC9Q9ErEO/wnIFzvZOnw
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-26 12:14:33
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hM+8/C/iSn9xLToF2AKnyw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration
