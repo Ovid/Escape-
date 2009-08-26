@@ -71,8 +71,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-19 21:07:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ARoCpuxkQ3xVLxkPAVy4WA
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-26 09:03:02
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UnZdThnuUEEEPG5/12DH0g
 
 __PACKAGE__->add_columns(
     'password' => {

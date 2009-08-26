@@ -7,7 +7,7 @@ __PACKAGE__->config(
     schema_class => 'Escape::Schema',
     
     connect_info => {
-        dsn => 'dbi:SQLite:escape.db',
+        dsn => 'dbi:SQLite:db/escape.db',
         user => '',
         password => '',
     }
