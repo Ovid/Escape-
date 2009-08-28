@@ -66,6 +66,12 @@ sub auto : Private {
           ->storage->dbh->selectcol_arrayref(
 'select distinct(substr(name,1,1)) as letter from country order by letter'
           );
+        @$letters = map {
+            {
+                href    => $c->uri_for( '/country', { starts_with => lc } ),
+                display => $_
+            }
+        } @$letters;
         $cache->set( letters => $letters );
     }
 

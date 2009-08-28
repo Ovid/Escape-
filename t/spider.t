@@ -9,8 +9,8 @@ use utf8;
 use Catalyst::Test 'Escape';
 {
     my %seen = (
-        '/'        => 1,
-        '/static/' => 1,     # maybe change this?
+        'http://localhost/'        => 1,
+        'http://localhost/static/' => 1,     # maybe change this?
     );
 
     sub get_links {
@@ -25,10 +25,9 @@ use Catalyst::Test 'Escape';
         my @results;
         foreach my $link (@links) {
             no warnings 'uninitialized';
-            next if $link =~ m{^\w+://};
+            next if $link !~ m{^https?://localhost/};
             foreach ( url_hack($link) ) {
                 next if $seen{$_}++;
-                $_ = "$base/$_" if $_ =~ m{^\w};
                 push @results => $_;
             }
         }
@@ -40,15 +39,17 @@ sub url_hack {
     my $link = shift;
     my $orig = $link;
     $link =~ s/\?.*//;    # strip the query string
-    my @hacks = grep { $_ } split '/' => $link;
-    my @links = '/';
+    my @hacks = grep { $_ } split m{/(?!/)} => $link;
+    my @links;
     while ( my $segment = shift @hacks ) {
+        no warnings 'uninitialized';
         push @links => $links[-1] . $segment . '/';
     }
 
     # ok (and safe) to strip the final /
     $links[-1] =~ s{\/$}{};
     push @links => $orig if $orig ne $link;
+    shift @links;   # gets rid of http://
     return @links;
 }
 my %visited;

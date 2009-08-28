@@ -52,10 +52,50 @@ sub index : Path : Args(0) {
     $c->stash->{title} ||= 'Countries';
 }
 
+sub get_country : Private {
+    my ( $self, $c, $country_key ) = @_;
+    my $country = $c->model('DB::Country')->find( { url_key => $country_key } );
+    unless ($country) {
+        $c->stash->{error_message} =
+          "Could not find a country for '$country_key'";
+        $c->detach('/status_not_found');
+    }
+    return $country;
+}
+
+sub get_region : Private {
+    my ( $self, $c, $country, $region_key ) = @_;
+    my $region = $c->model('DB::Region')->find(
+        {
+            url_key    => $region_key,
+            country_id => $country->id,
+        }
+    );
+    unless ($region) {
+        $c->stash->{error_message} = "Could not find a region for '$region_key'";
+        $c->detach('/status_not_found');
+    }
+    return $region;
+}
+
+sub get_city : Private {
+    my ( $self, $c, $region, $city_key ) = @_;
+    my $city = $c->model('DB::City')->find(
+        {
+            url_key    => $city_key,
+            region_id => $region->id,
+        }
+    );
+    unless ($city) {
+        $c->stash->{error_message} = "Could not find a city for '$city_key'";
+        $c->detach('/status_not_found');
+    }
+    return $city;
+}
+
 sub country : Path('/country/') : Args(1) {
-    my ( $self, $c, $url_key ) = @_;
-    my $country = $c->model('DB::Country')->find( { url_key => $url_key } )
-       or $c->detach('/status_not_found');
+    my ( $self, $c, $country_key ) = @_;
+    my $country = $c->forward('get_country', [$country_key]);
     $c->stash->{country} = $country;
     my $population = $country->population;
     foreach my $value (qw/population area/) {
@@ -82,6 +122,36 @@ sub country : Path('/country/') : Args(1) {
 
     $c->stash->{zoom_level} = $zoom_level;
     $c->stash->{title}      = $country->name;
+    $c->stash->{regions} =
+      $country->regions->search( undef, { order_by => 'name' } );
+}
+
+sub region : Path('/country/') : Args(2) {
+    my ( $self, $c, $country_key, $region_key ) = @_;
+    my $country = $c->forward( 'get_country', [$country_key] );
+    my $region = $c->forward( 'get_region', [ $country, $region_key ] );
+
+    $c->stash->{cities} = $c->model('DB::City')->search(
+        {
+            region_id => $region->id,
+        },
+        {
+            order_by => 'name',
+        }
+    );
+    $c->stash->{region}  = $region;
+    $c->stash->{country} = $country;
+}
+
+sub city : Path('/country/') : Args(3) {
+    my ( $self, $c, $country_key, $region_key, $city_key ) = @_;
+    my $country = $c->forward( 'get_country', [$country_key] );
+    my $region = $c->forward( 'get_region', [ $country, $region_key ] );
+    my $city = $c->forward( 'get_city', [ $region, $city_key ] );
+
+    $c->stash->{city}    = $city;
+    $c->stash->{region}  = $region;
+    $c->stash->{country} = $country;
 }
 
 sub starts_with : Private {

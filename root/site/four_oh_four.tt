@@ -4,3 +4,7 @@
 embarrassing.  It's your fault, though.</p>
 
 <p>I hope.</p>
+
+[% IF error_message %]
+<h1>[% error_message %]</h1>
+[% END %]
