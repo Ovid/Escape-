@@ -9,17 +9,17 @@
     src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAAO1tuVN09fTNsnuF3Gue90RQgE-WD94c_fvQfxZ82r1L-tc40dhTXa2-dAcSxPZbh3GrxAkPefvHWUQ" type="text/javascript"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="en-gb" />
-    <link href="/static/main.css" rel="stylesheet" rev="stylesheet" type="text/css" media="screen" />
+    <link href="[% c.uri_for('/static/main.css') %]" rel="stylesheet" rev="stylesheet" type="text/css" media="screen" />
   </head>
   <body[% IF country %] onload="load();"[% END %]>
     <div id="page">
       <div id="header">
         <div id="homepage_link">
-          <a href="/"></a>
+          <a href="[% c.uri_for('/') %]"></a>
         </div>
         <div id="search_form">
-          <a href="/"></a>
-          <form action="/search" method="get" id="search" name="search">
+          <a href="[% c.uri_for('/') %]"></a>
+          <form action="[% c.uri_for('/search') %]" method="get" id="search" name="search">
             <input type="text" name="q" id="search_box" alt="Search" value="[% search | html %]"/>
           </form>
         </div>
@@ -33,10 +33,10 @@
               </p>
               <ul>
                 <li>
-                  <a href="/overview/">Overview</a>
+                  <a href="[% c.uri_for('/overview') %]">Overview</a>
                 </li>
                 <li>
-                  <a href="/license/">License</a>
+                  <a href="[% c.uri_for('/license') %]">License</a>
                 </li>
               </ul>
             </div>
@@ -44,10 +44,10 @@
               <p>
                 Where
               </p>
-                <li><a href="/country/">All Countries</a></li>
+                <li><a href="[% c.uri_for('/country') %]">All Countries</a></li>
                 <li>
                 [% FOR letter IN letters %]
-                <a href="/country/?starts_with=[% letter | lower %]">[% letter %]</a>&nbsp;
+                <a href="[% letter.href %]">[% letter.display %]</a>&nbsp;
                 [% END %]
                 </li>
               </ul>
@@ -100,7 +100,7 @@ Explorer 8</a>
         <div id="right_column">
           <div class="side_group">
             <div class="side_panel tools_panel">
-              <p><a href="/user/">Who are you?</a></p>
+              <p><a href="[% c.uri_for('/user') %]">Who are you?</a></p>
               <ul>
                 [% IF c.user_exists %]
                 <li><a href="[% c.uri_for('/user', c.user.username) %]">Hi [% c.user.first_name %]!</a></li>
@@ -114,10 +114,10 @@ Explorer 8</a>
           <div class="side_group">
             <div class="side_panel tools_panel">
               <p>
-                <a href="/technology/">Technologies</a>
+                <a href="[% c.uri_for('/technology') %]">Technologies</a>
               </p>
               <ul>
-                <li><a href="/technology/">For teh (sic) geeks</a></li>
+                <li><a href="[% c.uri_for('/technology') %]">For teh (sic) geeks</a></li>
               </ul>
             </div>
           </div>

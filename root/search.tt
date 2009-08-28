@@ -2,7 +2,7 @@
 [% IF country_rs.count %]
 <ul> 
   [% WHILE (country = country_rs.next) -%]
-  <li id="[% country.code %]"><a href="/country/[% country.url_key %]/">[% country.name %]</a></li>
+  <li id="[% country.code %]"><a href="[% c.uri_for('/country', country.url_key) %]/">[% country.name %]</a></li>
   [% END -%]
 </ul>
 [% ELSE %]

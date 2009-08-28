@@ -1,7 +1,7 @@
 [% IF user_rs.count %]
 <ul> 
   [% WHILE (user = user_rs.next) -%]
-  <li id="[% user.username %]"><a href="/user/[% user.username %]/">[% user.first_name %] [% user.last_name %]</a></li>
+  <li id="[% user.username %]"><a href="[% c.uri_for('/user', user.username ) %]/">[% user.first_name %] [% user.last_name %]</a></li>
   [% END -%]
 </ul>
 [% ELSE %]

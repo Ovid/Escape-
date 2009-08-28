@@ -3,4 +3,4 @@
 <p>This is just me playing around with Catalyst, DBIx::Class, Freebase and
 related technologies.  Please ignore.</p>
 
-<p>You probably want to see <a href="/country/">the list of countries.</p>
+<p>You probably want to see <a href="[% c.uri_for('/country') %]">the list of countries.</p>

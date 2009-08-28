@@ -35,3 +35,9 @@ function load() {
 //]]>
 </script>
 <div id="[% country.name %]" style="width: 500; height: 300px; border:1em;"></div>
+
+<ul>
+  [% WHILE (region = regions.next) -%]
+  <li><a href="[% c.uri_for('/country', country.url_key, region.url_key ) %]">[% region.name %]</a></li>
+  [% END %]
+</ul>
