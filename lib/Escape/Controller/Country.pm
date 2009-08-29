@@ -82,9 +82,9 @@ sub get_city : Private {
     my ( $self, $c, $region, $city_key ) = @_;
     my $city = $c->model('DB::City')->find(
         {
-            url_key    => $city_key,
+            url_key   => $city_key,
             region_id => $region->id,
-        }
+        },
     );
     unless ($city) {
         $c->stash->{error_message} = "Could not find a city for '$city_key'";
@@ -132,22 +132,23 @@ sub region : Path('/country/') : Args(2) {
     my $region = $c->forward( 'get_region', [ $country, $region_key ] );
 
     $c->stash->{cities} = $c->model('DB::City')->search(
+        { region_id => $region->id, },
         {
-            region_id => $region->id,
-        },
-        {
+            page => ( $c->req->param('page') || 1 ),
+            rows => ( $c->req->param('rows') || 20 ),
             order_by => 'name',
         }
     );
     $c->stash->{region}  = $region;
     $c->stash->{country} = $country;
+    $c->stash->{pager}   = $c->stash->{cities}->pager;
 }
 
 sub city : Path('/country/') : Args(3) {
     my ( $self, $c, $country_key, $region_key, $city_key ) = @_;
     my $country = $c->forward( 'get_country', [$country_key] );
-    my $region = $c->forward( 'get_region', [ $country, $region_key ] );
-    my $city = $c->forward( 'get_city', [ $region, $city_key ] );
+    my $region  = $c->forward( 'get_region',  [ $country, $region_key ] );
+    my $city    = $c->forward( 'get_city',    [ $region, $city_key ] );
 
     $c->stash->{city}    = $city;
     $c->stash->{region}  = $region;
