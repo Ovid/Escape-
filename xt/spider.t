@@ -2,15 +2,15 @@ use strict;
 use warnings;
 
 use lib 't/lib';
-use Test::Most 'no_plan';    # tests => 3;
+use Test::Most 'no_plan','die';    # tests => 3;
 use HTML::SimpleLinkExtor;
 use utf8;
 
 use Catalyst::Test 'Escape';
 {
     my %seen = (
-        'http://localhost/'        => 1,
-        'http://localhost/static/' => 1,     # maybe change this?
+        'http://localhost/'       => 1,
+        'http://localhost/static' => 1,     # maybe change this?
     );
 
     sub get_links {
@@ -27,6 +27,7 @@ use Catalyst::Test 'Escape';
             no warnings 'uninitialized';
             next if $link !~ m{^https?://localhost/};
             foreach ( url_hack($link) ) {
+                s{/$}{};   # cheap normalization
                 next if $seen{$_}++;
                 push @results => $_;
             }
@@ -58,6 +59,7 @@ test_links('/');
 sub test_links {
     my @links = @_;
     foreach my $link (@links) {
+        diag $link;
         ok my $request = request($link), "We should be able to fetch '$link'";
         is $request->code, 200, '... with the correct status code';
         test_links( get_links( $link, $request ) );
