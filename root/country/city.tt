@@ -10,10 +10,10 @@ function load() {
         map.addControl(new GOverviewMapControl());
         var geocoder = new GClientGeocoder();
         geocoder.getLocations(
-            "[% city.url_key %],[% region.url_key %]", 
+            "[% city.url_key %]", 
             function(result) {
                 var x = result.Placemark[0].Point.coordinates;
-                map.setCenter(new GLatLng(x[1],x[0]), 10);
+                map.setCenter(new GLatLng([% city.latitude %],[% city.longitude %]), 10);
                 var marker = new GMarker(map.getCenter(), Icon);
                 map.setMapType(G_NORMAL_MAP);
                 map.addOverlay(marker);
