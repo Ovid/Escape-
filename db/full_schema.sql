@@ -3,7 +3,7 @@ CREATE TABLE city (
     name       VARCHAR(255) NOT NULL,
     latitude   FLOAT        NOT NULL,
     longitude  FLOAT        NOT NULL,
-    region_id  INTEGER          NULL,
+    region_id  INTEGER          NULL, url_key VARCHAR(255),
     FOREIGN KEY (region_id) REFERENCES region(id)
 );
 CREATE TABLE country (
@@ -32,7 +32,7 @@ CREATE TABLE region (
     id         INTEGER PRIMARY KEY,
     code       CHAR(2)      NOT NULL,
     name       VARCHAR(255)     NULL, -- temp hack, I hope
-    country_id INTEGER      NOT NULL, 
+    country_id INTEGER      NOT NULL, url_key VARCHAR(255), 
     FOREIGN KEY (country_id) REFERENCES country(id)
 );
 CREATE TABLE role (
