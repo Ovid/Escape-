@@ -15,14 +15,8 @@ please don't sue me)
 
 =head1 USAGE
 
-Rebuild the model and populate the database
-
-    util/country.pl
-
-Now you also want to apply db/migrations/0001_up.sql
-
-(Eventually I'll automate this)
-
 Start the server
 
     ./script/escape_server.pl -r
+
+There might be more in the future, but that's all it takes right now.
