@@ -35,8 +35,8 @@ __PACKAGE__->belongs_to("user_id", "Escape::Schema::Result::User", { id => "user
 __PACKAGE__->belongs_to("poll_id", "Escape::Schema::Result::Poll", { id => "poll_id" });
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-26 12:14:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QSXLfOVHzAswYiZhsD6Xjw
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-01 10:51:25
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:hierWOgfEoavIf06yLFUnQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

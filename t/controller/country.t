@@ -5,7 +5,7 @@ use lib 't/lib';
 use Test::Most 'no_plan', 'die';    # tests => 3;
 
 use TestDB qw(fixture);
-fixture('country');
+fixture(qw/user country/);
 use Catalyst::Test 'Escape';
 
 my $request = request('/country');

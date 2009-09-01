@@ -1,11 +1,3 @@
-CREATE TABLE city (
-    id         INTEGER PRIMARY KEY,
-    name       VARCHAR(255) NOT NULL,
-    latitude   FLOAT        NOT NULL,
-    longitude  FLOAT        NOT NULL,
-    region_id  INTEGER          NULL, url_key VARCHAR(255),
-    FOREIGN KEY (region_id) REFERENCES region(id)
-);
 CREATE TABLE country (
     id         INTEGER PRIMARY KEY,
     iso        CHAR(2)      NOT NULL,
@@ -27,13 +19,6 @@ CREATE TABLE poll_question (
     sort_order    INTEGER,
     poll_id       INTEGER,
     FOREIGN KEY (poll_id) REFERENCES poll(id)
-);
-CREATE TABLE region (
-    id         INTEGER PRIMARY KEY,
-    code       CHAR(2)      NOT NULL,
-    name       VARCHAR(255)     NULL, -- temp hack, I hope
-    country_id INTEGER      NOT NULL, url_key VARCHAR(255), 
-    FOREIGN KEY (country_id) REFERENCES country(id)
 );
 CREATE TABLE role (
     id   INTEGER PRIMARY KEY,

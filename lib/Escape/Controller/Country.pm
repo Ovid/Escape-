@@ -2,7 +2,7 @@ package Escape::Controller::Country;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use parent 'Catalyst::Controller::HTML::FormFu';
 use Number::Format;
 use HTML::Entities;
 
@@ -63,36 +63,6 @@ sub get_country : Private {
     return $country;
 }
 
-sub get_region : Private {
-    my ( $self, $c, $country, $region_key ) = @_;
-    my $region = $c->model('DB::Region')->find(
-        {
-            url_key    => $region_key,
-            country_id => $country->id,
-        }
-    );
-    unless ($region) {
-        $c->stash->{error_message} = "Could not find a region for '$region_key'";
-        $c->detach('/status_not_found');
-    }
-    return $region;
-}
-
-sub get_city : Private {
-    my ( $self, $c, $region, $city_key ) = @_;
-    my $city = $c->model('DB::City')->find(
-        {
-            url_key   => $city_key,
-            region_id => $region->id,
-        },
-    );
-    unless ($city) {
-        $c->stash->{error_message} = "Could not find a city for '$city_key'";
-        $c->detach('/status_not_found');
-    }
-    return $city;
-}
-
 sub country : Path('/country/') : Args(1) {
     my ( $self, $c, $country_key ) = @_;
     my $country = $c->forward('get_country', [$country_key]);
@@ -122,37 +92,6 @@ sub country : Path('/country/') : Args(1) {
 
     $c->stash->{zoom_level} = $zoom_level;
     $c->stash->{title}      = $country->name;
-    $c->stash->{regions} =
-      $country->regions->search( undef, { order_by => 'name' } );
-}
-
-sub region : Path('/country/') : Args(2) {
-    my ( $self, $c, $country_key, $region_key ) = @_;
-    my $country = $c->forward( 'get_country', [$country_key] );
-    my $region = $c->forward( 'get_region', [ $country, $region_key ] );
-
-    $c->stash->{cities} = $c->model('DB::City')->search(
-        { region_id => $region->id, },
-        {
-            page => ( $c->req->param('page') || 1 ),
-            rows => ( $c->req->param('rows') || 20 ),
-            order_by => 'name',
-        }
-    );
-    $c->stash->{region}  = $region;
-    $c->stash->{country} = $country;
-    $c->stash->{pager}   = $c->stash->{cities}->pager;
-}
-
-sub city : Path('/country/') : Args(3) {
-    my ( $self, $c, $country_key, $region_key, $city_key ) = @_;
-    my $country = $c->forward( 'get_country', [$country_key] );
-    my $region  = $c->forward( 'get_region',  [ $country, $region_key ] );
-    my $city    = $c->forward( 'get_city',    [ $region, $city_key ] );
-
-    $c->stash->{city}    = $city;
-    $c->stash->{region}  = $region;
-    $c->stash->{country} = $country;
 }
 
 sub starts_with : Private {

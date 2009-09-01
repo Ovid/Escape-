@@ -71,18 +71,18 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-08-26 12:14:33
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:AlxKyglM8+08S/B3Iuh2Ag
+# Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-01 10:51:25
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6nVBGGcsjwBIK6ACO2s6mQ
 
 __PACKAGE__->add_columns(
     'password' => {
-        data_type => "TEXT",
-        size => undef,
+        data_type     => "TEXT",
+        size          => undef,
         encode_column => 1,
-        encode_class => 'Digest',
-        encode_args => {
-            algorithm => 'SHA-1',
-            format => 'hex',
+        encode_class  => 'Digest',
+        encode_args   => {
+            algorithm   => 'SHA-1',
+            format      => 'hex',
             salt_length => 10
         },
         encode_check_method => 'check_password',
