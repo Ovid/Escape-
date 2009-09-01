@@ -3,21 +3,15 @@ use warnings;
 use Test::More 'no_plan';    # tests => 2;
 
 use lib 't/lib';
-use TestDB 'model';
+use TestDB 'model', 'fixture';
+fixture('user');
 use Test::WWW::Mechanize::Catalyst 'Escape';
 BEGIN { use_ok 'Escape::Controller::Login' }
 
 my $mech = Test::WWW::Mechanize::Catalyst->new;
 $mech->get('/country?starts_with=m');
 $mech->get_ok( '/login', 'We should be able to fetch our login page' );
-my $user_rs = model->resultset('User');
-$user_rs->create(
-    {
-        username   => 'user',
-        password   => 'pass',
-        first_name => 'first_name',
-    }
-);
+
 $mech->submit_form_ok(
     {
         form_name => 'login',
