@@ -31,6 +31,7 @@ requires 'DBIx::Class::TimeStamp'     => '0.12';
 requires 'HTML::FormFu'               => '0.05001';
 requires 'HTML::SimpleLinkExtor'      => '1.23';
 requires 'Number::Format'             => '1.72';
+requires 'HTML::FormFu::Model::DBIC'  => '0.05002';
 
 test_requires 'App::Info::RDBMS::SQLite'       => '0.55';
 test_requires 'Test::Most'                     => '0.21';

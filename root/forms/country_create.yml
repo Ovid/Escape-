@@ -1,0 +1,85 @@
+---
+# indicator is the field that is used to test for form submission
+indicator: submit
+elements:
+    - type: Text
+      name: name
+      label: Name
+      attributes:
+        title: Enter the name of the country here
+      constraints:
+        # Force the length to be between 5 and 40 chars
+        - type: Length
+          min: 5
+          max: 255
+          # Override the default of 'Invalid input'
+          message: Length must be between 5 and 255 characters
+
+    - type: Text
+      name: capital
+      label: Capital
+      attributes:
+        title: Enter the name of the capital of the country here
+      constraints:
+        # Force the length to be between 5 and 40 chars
+        - type: Length
+          min: 5
+          max: 255
+          # Override the default of 'Invalid input'
+          message: Length must be between 5 and 255 characters
+
+    - type: Text
+      name: wikipedia
+      label: Wikipedia URL
+      attributes:
+        title: Enter the URL of this wikipedia page for this country
+      constraints:
+        - type: Length
+          min: 20
+          max: 255
+          message: URLs must be between 20 and 255 characters
+
+    - type: Text
+      name: iso
+      label: ISO Code
+      attributes:
+        title: Enter the two letter ISO code of the country
+      constraints:
+        - type: Length
+          min: 2
+          max: 2
+          message: ISO code must be exactly two characters
+
+    - type: Text
+      name: population
+      label: Population
+      attributes:
+        title: Enter the population of the country here
+      constraints:
+        - type: Integer
+          message: Required.  Digits only, please.
+
+    - type: Text
+      name: area
+      label: Area (Sq. Kilometers)
+      attributes:
+        title: Enter the area of the country here
+      constraints:
+        - type: Integer
+          message: Required.  Digits only, please.
+
+    # The submit button
+    - type: Submit
+      name: submit
+      value: Submit
+# Global filters and constraints.
+constraints:
+  # The user cannot leave any fields blank
+  - Required
+  # If not all fields are required, move the Required constraint to the 
+  # fields that are
+filter:
+  # Remove whitespace at both ends
+  - TrimEdges
+  # Escape HTML characters for safety
+  - HTMLEscape

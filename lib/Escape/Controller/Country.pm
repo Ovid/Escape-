@@ -5,6 +5,7 @@ use warnings;
 use parent 'Catalyst::Controller::HTML::FormFu';
 use Number::Format;
 use HTML::Entities;
+use Text::Unaccent;
 
 my @ZOOM_LEVEL;
 
@@ -42,10 +43,23 @@ Catalyst Controller.
 
 =cut
 
+sub is_create : Private {
+    my ( $self, $c ) = @_;
+    my $roles = $c->user->user_roles;
+    while ( my $role = $roles->next ) {
+        warn $role->role->role;
+    }
+    return unless $c->assert_any_user_role(qw/root admin/);
+    return 'create' eq ( $c->req->param('action') || '');
+}
+
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     if ( defined( my $letters = $c->req->param('starts_with') ) ) {
         $c->detach( 'starts_with', [$letters] );
+    }
+    if ( $c->forward('is_create') ) {
+        $c->detach('country_create');
     }
     $c->stash->{country_rs} =
       $c->model('DB::Country')->search( undef, { order_by => 'name' } );
@@ -63,7 +77,7 @@ sub get_country : Private {
     return $country;
 }
 
-sub country : Path('/country/') : Args(1) {
+sub country : Path('/country') : Args(1) {
     my ( $self, $c, $country_key ) = @_;
     my $country = $c->forward('get_country', [$country_key]);
     $c->stash->{country} = $country;
@@ -92,6 +106,24 @@ sub country : Path('/country/') : Args(1) {
 
     $c->stash->{zoom_level} = $zoom_level;
     $c->stash->{title}      = $country->name;
+}
+
+sub country_create :Action :FormConfig('country_create.yml') {
+    my ($self, $c) = @_;
+
+    my $form = $c->stash->{form};
+    $c->stash->{template} = 'country/create.tt';
+
+    if ($form->submitted_and_valid) {
+        $form->add_valid(
+            url_key => lc( unac_string( 'UTF8', $form->param_value('name') ) )
+        );
+        my $country = $c->model('DB::Country')->new_result({});
+        $form->model->update($country);
+        $c->flash->{status_msg} = 'Country created';
+        $c->response->redirect($c->uri_for($self->action_for('index'))); 
+        $c->detach;
+    } 
 }
 
 sub starts_with : Private {

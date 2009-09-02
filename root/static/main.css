@@ -623,5 +623,18 @@ div.form_buttons input {
     font-size: 1.2em;
 }
 
+/* Simple form layout for HTML::FormFu */
+
+input {
+    display: block;
+}
+select {
+    display: block;
+}
+.submit {
+    padding-top: .5em;
+    display: block;
+}
+
 /* @end */
 

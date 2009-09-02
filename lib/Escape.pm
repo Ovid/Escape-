@@ -16,6 +16,7 @@ use Catalyst::Runtime 5.80;
 use parent qw/Catalyst/;
 #use Catalyst qw/-Debug
 use Catalyst qw/
+  -Debug
   Cache
   ConfigLoader
   Static::Simple
@@ -23,6 +24,7 @@ use Catalyst qw/
   StackTrace
 
   Authentication
+  Authorization::Roles
 
   Session
   Session::Store::FastMmap
