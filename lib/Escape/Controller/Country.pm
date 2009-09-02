@@ -45,10 +45,6 @@ Catalyst Controller.
 
 sub is_create : Private {
     my ( $self, $c ) = @_;
-    my $roles = $c->user->user_roles;
-    while ( my $role = $roles->next ) {
-        warn $role->role->role;
-    }
     return unless $c->assert_any_user_role(qw/root admin/);
     return 'create' eq ( $c->req->param('action') || '');
 }
