@@ -31,6 +31,7 @@ __PACKAGE__->belongs_to("role_id", "Escape::Schema::Result::Role", { id => "role
 # Created by DBIx::Class::Schema::Loader v0.04006 @ 2009-09-01 10:51:25
 # DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pibykjyduKaCVgGfcnZmGA
 
+sub user { goto &user_id }
+sub role { goto &role_id }
 
-# You can replace this text with custom content, and it will be preserved on regeneration
 1;
