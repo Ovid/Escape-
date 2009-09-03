@@ -1,5 +1,5 @@
 0.05
-        - Cities lists are now returned as paged resultsets.
+        - Add/delete countries.
         - Make sure that country and user pages which don't find a match
           redirect to 404s.
         - Add user profile and list pages.
