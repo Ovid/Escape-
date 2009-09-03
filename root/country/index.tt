@@ -1,7 +1,28 @@
+<script type="text/javascript">
+<!--
+function confirmAction(message) {
+    var agree = confirm(message)
+    if (agree) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+//-->
+</script>
+[% IF c.check_any_user_role('admin', 'root') %]
+<p>[ <a href="[% c.uri_for('/country/', { 'action' => 'create' }) %]">Add Country</a> ]</p>
+[% END %]
 [% IF country_rs.count %]
 <ul> 
   [% WHILE (country = country_rs.next) -%]
-  <li id="[% country.code %]"><a href="[% c.uri_for('/country', country.url_key)  %]/">[% country.name %]</a></li>
+  <li id="[% country.code %]">
+    [% IF c.check_any_user_role('root') %]
+    [ <a onclick="return confirmAction('Are you sure you want to delete [% country.name %]?')" href="[% c.uri_for('/country', country.url_key, { 'action' => 'delete' }) %]">Delete</a> ]
+    [% END %]
+    <a href="[% c.uri_for('/country', country.url_key)  %]/">[% country.name %]</a>
+  </li>
   [% END -%]
 </ul>
 [% ELSE %]

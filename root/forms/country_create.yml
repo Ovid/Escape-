@@ -1,6 +1,8 @@
 ---
 # indicator is the field that is used to test for form submission
 indicator: submit
+attributes:
+    name: country_create
 elements:
     - type: Text
       name: name

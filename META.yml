@@ -45,6 +45,7 @@ requires:
   DBIx::Class::EncodedColumn: 0.00002
   DBIx::Class::TimeStamp: 0.12
   HTML::FormFu: 0.05001
+  HTML::FormFu::Model::DBIC: 0.05002
   HTML::SimpleLinkExtor: 1.23
   Number::Format: 1.72
   parent: 0

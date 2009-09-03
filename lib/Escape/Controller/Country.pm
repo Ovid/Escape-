@@ -2,7 +2,7 @@ package Escape::Controller::Country;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller::HTML::FormFu';
+use parent 'Escape::Controller';
 use Number::Format;
 use HTML::Entities;
 use Text::Unaccent;
@@ -43,12 +43,6 @@ Catalyst Controller.
 
 =cut
 
-sub is_create : Private {
-    my ( $self, $c ) = @_;
-    return unless $c->check_any_user_role(qw/root admin/);
-    return 'create' eq ( $c->req->param('action') || '');
-}
-
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     if ( defined( my $letters = $c->req->param('starts_with') ) ) {
@@ -76,6 +70,11 @@ sub get_country : Private {
 sub country : Path('/country') : Args(1) {
     my ( $self, $c, $country_key ) = @_;
     my $country = $c->forward('get_country', [$country_key]);
+
+    if ( $c->forward('is_delete') ) {
+        $c->detach('country_delete', [$country]);
+    }
+
     $c->stash->{country} = $country;
     my $population = $country->population;
     foreach my $value (qw/population area/) {
@@ -116,10 +115,22 @@ sub country_create :Action :FormConfig('country_create.yml') {
         );
         my $country = $c->model('DB::Country')->new_result({});
         $form->model->update($country);
-        $c->flash->{status_msg} = 'Country created';
+        $c->flash->{letters} = '';
+        $c->flash->{status_message} = 'Country created';
         $c->response->redirect($c->uri_for($self->action_for('index'))); 
-        $c->detach;
     } 
+}
+
+sub country_delete : Action {
+    my ( $self, $c, $country ) = @_;
+
+    $c->response->redirect( $c->uri_for( $self->action_for('index') ) )
+      unless $c->check_any_user_role('root');
+    my $message = "Country '" . $country->name . "' deleted";
+    $country->delete;
+    $c->flash->{letters} = '';
+    $c->flash->{status_message} = $message;
+    $c->response->redirect($c->uri_for($self->action_for('index')));
 }
 
 sub starts_with : Private {

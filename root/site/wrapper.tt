@@ -94,6 +94,9 @@ Explorer 8</a>
    </p>
  </div>
 <![endif]-->
+            [% IF status_message %]
+            <p>[% status_message %]</p>
+            [% END %]
             [% content -%]
           </div>
         </div>
