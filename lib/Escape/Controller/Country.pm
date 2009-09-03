@@ -7,26 +7,6 @@ use Number::Format;
 use HTML::Entities;
 use Text::Unaccent;
 
-my @ZOOM_LEVEL;
-
-BEGIN {
-    my @areas = qw/
-      10000000
-      5000000
-      1000000
-      100000
-      10000
-      1000
-      100
-      20
-      1
-      /;
-    # zoom level 14 is closest, 4 is farthest
-    foreach my $zoom ( 1 .. @areas - 1 ) {
-        push @ZOOM_LEVEL => [ $areas[$zoom] => $zoom + 3 ];
-    }
-}
-
 =head1 NAME
 
 Escape::Controller::Country - Catalyst Controller
@@ -69,56 +49,38 @@ sub get_country : Private {
 
 sub country : Path('/country') : Args(1) {
     my ( $self, $c, $country_key ) = @_;
-    my $country = $c->forward('get_country', [$country_key]);
+    my $country = $c->forward( 'get_country', [$country_key] );
 
     if ( $c->forward('is_delete') ) {
-        $c->detach('country_delete', [$country]);
+        $c->detach( 'country_delete', [$country] );
     }
 
     $c->stash->{country} = $country;
     my $population = $country->population;
     foreach my $value (qw/population area/) {
         $c->stash->{$value} =
-          $country->$value
-          ? Number::Format->new(
-            -thousands_sep => ',',
-            -decimal_point => '.'
-          )->format_number( $country->$value )
-          : '';
+          $c->forward( 'format_number', [ $country->$value ] );
     }
 
-    # We don't yet have areas for everything.  Hope this is ok.
-    my $area       = $country->area || 0;  
-    my $zoom_level = 3;
-
-    # zoom level 14 is closest, 4 is farthest
-    foreach my $zoom (reverse @ZOOM_LEVEL) {
-        if ( $area < $zoom->[0] ) {
-            $zoom_level = $zoom->[1];
-            last;
-        }
-    }
-
-    $c->stash->{zoom_level} = $zoom_level;
-    $c->stash->{title}      = $country->name;
+    $c->stash->{title} = $country->name;
 }
 
-sub country_create :Action :FormConfig('country_create.yml') {
-    my ($self, $c) = @_;
+sub country_create : Action : FormConfig('country_create.yml') {
+    my ( $self, $c ) = @_;
 
     my $form = $c->stash->{form};
     $c->stash->{template} = 'country/create.tt';
 
-    if ($form->submitted_and_valid) {
+    if ( $form->submitted_and_valid ) {
         $form->add_valid(
             url_key => lc( unac_string( 'UTF8', $form->param_value('name') ) )
         );
-        my $country = $c->model('DB::Country')->new_result({});
+        my $country = $c->model('DB::Country')->new_result( {} );
         $form->model->update($country);
-        $c->flash->{letters} = '';
+        $c->flash->{letters}        = '';
         $c->flash->{status_message} = 'Country created';
-        $c->response->redirect($c->uri_for($self->action_for('index'))); 
-    } 
+        $c->response->redirect( $c->uri_for( $self->action_for('index') ) );
+    }
 }
 
 sub country_delete : Action {
@@ -128,9 +90,9 @@ sub country_delete : Action {
       unless $c->check_any_user_role('root');
     my $message = "Country '" . $country->name . "' deleted";
     $country->delete;
-    $c->flash->{letters} = '';
+    $c->flash->{letters}        = '';
     $c->flash->{status_message} = $message;
-    $c->response->redirect($c->uri_for($self->action_for('index')));
+    $c->response->redirect( $c->uri_for( $self->action_for('index') ) );
 }
 
 sub starts_with : Private {

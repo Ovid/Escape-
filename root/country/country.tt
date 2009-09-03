@@ -24,7 +24,7 @@ function load() {
             "[% country.url_key %]", 
             function(result) {
                 var x = result.Placemark[0].Point.coordinates;
-                map.setCenter(new GLatLng(x[1],x[0]), [% zoom_level %]);
+                map.setCenter(new GLatLng(x[1],x[0]), [% country.google_zoom %]);
                 var marker = new GMarker(map.getCenter(), Icon);
                 map.setMapType(G_NORMAL_MAP);
                 map.addOverlay(marker);

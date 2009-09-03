@@ -7,7 +7,7 @@ CREATE TABLE country (
     area       FLOAT            NULL,
     capital    VARCHAR(255) NOT NULL,
     wikipedia  VARCHAR(255) NOT NULL
-, latitude  FLOAT, longitude FLOAT);
+, latitude  FLOAT, longitude FLOAT, google_zoom INTEGER);
 CREATE TABLE poll (
     id            INTEGER PRIMARY KEY,
     title         VARCHAR(255) NOT NULL,

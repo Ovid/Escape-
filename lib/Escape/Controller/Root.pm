@@ -28,10 +28,17 @@ Escape::Controller::Root - Root Controller for Escape
 
 =cut
 
-sub index      : Path                 : Args(0) {}
-sub overview   : Path('/overview/')   : Args(0) {}
-sub license    : Path('/license/')    : Args(0) {}
-sub technology : Path('/technology/') : Args(0) {}
+sub index : Path : Args(0) {
+}
+
+sub overview : Path('/overview/') : Args(0) {
+}
+
+sub license : Path('/license/') : Args(0) {
+}
+
+sub technology : Path('/technology/') : Args(0) {
+}
 
 sub default : Path {
     my ( $self, $c ) = @_;
@@ -81,7 +88,7 @@ sub auto : Private {
     }
 
     # static data we want to cache
-    $c->stash->{letters}        = $letters;
+    $c->stash->{letters} = $letters;
 
     if ( $c->req->path eq none(qw/login logout/) ) {
         $c->flash->{path} = $c->req->uri->as_string;
