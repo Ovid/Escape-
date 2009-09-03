@@ -20,3 +20,15 @@ Start the server
     ./script/escape_server.pl -r
 
 There might be more in the future, but that's all it takes right now.
+
+=head1 AUTHOR
+
+Curtis "Ovid" Poe
+
+=head1 LICENSE
+
+The "Escape" software package, developed by Curtis "Ovid" Poe, is released
+under the Artistic 2.0 license.  A copy of this license is distributed with
+this software and may also be found at
+L<http://www.perlfoundation.org/artistic_license_2_0>.
+

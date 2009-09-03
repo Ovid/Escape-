@@ -80,7 +80,9 @@ Curtis Poe
 =head1 LICENSE
 
 This library is free software. You can redistribute it and/or modify
-it under the same terms as Perl itself.
+it under the same terms as the Perl Artistic 2.0 license.
+
+See L<http://www.perlfoundation.org/artistic_license_2_0>.
 
 =cut
 
