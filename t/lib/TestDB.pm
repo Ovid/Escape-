@@ -9,6 +9,8 @@ use base 'Exporter';
 
 our @EXPORT_OK = qw(
   fixture
+  login_ok
+  logout_ok
   model
   dbi
   dsn
@@ -79,6 +81,28 @@ sub fixture {
             _confess $error;
         }
     }
+}
+
+sub login_ok ($$$;$) {
+    my ( $mech, $user, $pass, $message ) = @_;
+    $message ||= 'Logged in ok';
+    $mech->get('/login');
+    $mech->submit_form_ok(
+        {
+            form_name => 'login',
+            fields    => {
+                username => $user,
+                password => $pass,
+            }
+        },
+        $message
+    );
+}
+
+sub logout_ok ($;$) {
+    my ( $mech, $message ) = @_;
+    $message ||= 'Logged out ok';
+    $mech->follow_link_ok( { text_regex => qr/Logout/ }, $message );
 }
 
 1;
