@@ -12,7 +12,7 @@ configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
 generated_by: 'Module::Install version 0.91'
-license: perl
+license: artistic_2
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
@@ -50,5 +50,7 @@ requires:
   Number::Format: 1.72
   parent: 0
 resources:
-  license: http://dev.perl.org/licenses/
+  bugtracker: http://github.com/Ovid/Escape-/issues
+  license: http://opensource.org/licenses/artistic-license-2.0.php
+  repository: http://github.com/Ovid/Escape-/tree/master
 version: 0.05

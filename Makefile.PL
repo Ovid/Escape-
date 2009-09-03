@@ -3,6 +3,9 @@ use inc::Module::Install;
 
 name 'Escape';
 all_from 'lib/Escape.pm';
+license 'artistic_2';
+repository 'http://github.com/Ovid/Escape-/tree/master';
+bugtracker 'http://github.com/Ovid/Escape-/issues';
 
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Realm::SimpleDB';
