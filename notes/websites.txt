@@ -1,2 +1,4 @@
 http://www.transitionsabroad.com/
 http://gsociology.icaap.org/data.htm (public domain data from US Gov, Excel)
+http://www.nationmaster.com/         (great stats!)
+https://www.cia.gov/library/publications/the-world-factbook/ (now has csv)

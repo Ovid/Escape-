@@ -6,6 +6,9 @@ use Test::Most 'no_plan', 'die';    # tests => 3;
 
 use TestDB qw(model fixture login_ok logout_ok);
 fixture(qw/user country/);
+
+sub country_rs { model->resultset('Country') }
+
 use Test::WWW::Mechanize::Catalyst 'Escape';
 my $mech = Test::WWW::Mechanize::Catalyst->new;
 
@@ -66,14 +69,19 @@ $mech->submit_form_ok(
             iso        => 'mr',
             population => 100_000,
             area       => 200_000,
+            zoom_level => 12,
         },
         button => 'submit',
     },
     'We should be able to create a new country'
 );
 
+my $countries = country_rs;
+while ( my $c = $countries->next ) {
+    diag $c->name;
+}
 $mech->get_ok( '/country/mordor/',
-    '... and we should be able to fetch the new country page' );
+    '... and we should be able to fetch the new country page' ) or die;
 $mech->content_like( qr/200,000/, '... and see reasonable data' );
 
 $mech->get_ok( '/country/mordor/?action=delete',

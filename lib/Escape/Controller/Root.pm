@@ -90,7 +90,7 @@ sub auto : Private {
     # static data we want to cache
     $c->stash->{letters} = $letters;
 
-    if ( $c->req->path eq none(qw/login logout/) ) {
+    if ( $c->req->path eq none(qw/login logout/) && !$c->is_editing) {
         $c->flash->{path} = $c->req->uri->as_string;
     }
     $c->keep_flash('path');

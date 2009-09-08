@@ -70,6 +70,16 @@ elements:
         - type: Integer
           message: Required.  Digits only, please.
 
+    - type: Text
+      name: google_zoom
+      label: Map zoom level (4 is max, 14 is min)
+      attributes:
+        title: Enter the map zoom level of the country here.
+      constraints:
+        - type: Range
+          min: 4
+          max: 14
+          message: Required.  Digits only, please.
     # The submit button
     - type: Submit
       name: submit

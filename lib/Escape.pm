@@ -26,6 +26,8 @@ use Catalyst qw/
   Session
   Session::Store::FastMmap
   Session::State::Cookie
+
+  +Escape::Catalyst::Plugin::Editing
   /;
 our $VERSION = '0.05';
 

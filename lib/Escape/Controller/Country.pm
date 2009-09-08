@@ -28,7 +28,7 @@ sub index : Path : Args(0) {
     if ( defined( my $letters = $c->req->param('starts_with') ) ) {
         $c->detach( 'starts_with', [$letters] );
     }
-    if ( $c->forward('is_create') ) {
+    if ( $c->is_create ) {
         $c->detach('country_create');
     }
     $c->stash->{country_rs} =
@@ -51,7 +51,7 @@ sub country : Path('/country') : Args(1) {
     my ( $self, $c, $country_key ) = @_;
     my $country = $c->forward( 'get_country', [$country_key] );
 
-    if ( $c->forward('is_delete') ) {
+    if ( $c->is_delete ) {
         $c->detach( 'country_delete', [$country] );
     }
 
