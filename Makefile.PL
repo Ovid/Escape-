@@ -9,6 +9,7 @@ bugtracker 'http://github.com/Ovid/Escape-/issues';
 
 requires 'Catalyst::Action::RenderView';
 requires 'Catalyst::Authentication::Realm::SimpleDB';
+requires 'Catalyst::Plugin::Authorization::Roles';
 requires 'Catalyst::Controller::HTML::FormFu';
 requires 'Catalyst::Helper::View::TT';
 requires 'Catalyst::Plugin::Authentication';
@@ -21,12 +22,12 @@ requires 'Catalyst::Plugin::StackTrace';
 requires 'Catalyst::Plugin::Static::Simple';
 requires 'Catalyst::Runtime' => '5.80007';
 requires 'parent';
+requires 'Text::Unaccent'     => '1.08';
 requires
   'Config::General';  # This should reflect the config file format you've chosen
                       # See Catalyst::Plugin::ConfigLoader for supported formats
 recommends 'IO::Prompt'         => '0.99.4';    # helper script
 recommends 'Text::CSV::Encoded' => '0.08';      # helper script
-recommends 'Text::Unaccent'     => '1.08';      # helper script
 
 requires 'DBD::SQLite'                => '1.25';
 requires 'DBIx::Class::EncodedColumn' => '0.00002';
